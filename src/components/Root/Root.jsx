@@ -1,53 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Marquee from "../Marquee/Marquee";
 import Navbar from "../Navbar/Navbar";
+import LeftSidebar from "../LeftSidebar/LeftSidebar";
+import RightSidebar from "../RightSidebar/RightSidebar";
+import { Outlet } from "react-router";
 // import button from "daisyui/components/button";
 
-
 const Root = () => {
-    const [activeCategory, setActiveCategory] = useState("Sports")
+  const [activeCategory, setActiveCategory] = useState("Sports");
+  //   const loaderData = useLoaderData();
+  //   const [news, setNews] = useState(loaderData);
+  //   console.log(news);
+  const [categories, setCategories] = useState([]);
 
-    const categories = [
-        "Sports",
-        "Politics",
-        "Technology",
-        "Business",
-        "Entertainment",
-        "Health",
-    ];
-    return (
-        <div className="max-w-300 mx-auto">
-            <Header></Header>
-            <Marquee></Marquee>
-            <Navbar></Navbar>
-            <div className="grid grid-cols-4 gap-4">
+  useEffect(() => {
+    fetch("categories.json")
+      .then((res) => res.json())
+      .then((data) => setCategories(data));
+  }, []);
 
-                {/* 1st = 1 column */}
-                <div className="col-span-1">
-                    <div className="flex flex-col items-start">
-                        {
-                            categories.map(category => (
-                                <button onClick={() => setActiveCategory(category)} className={`pl-2 py-3 w-full text-left cursor-pointer ${activeCategory === category ? "bg-gray-200" : ""}`}>{category}</button>
-                            ))
-                        }
-                    </div>
-                </div>
-
-                {/* 2nd = 2 columns */}
-                <div className="col-span-2 bg-blue-100 p-4">
-                    Middle (Main Content)
-                </div>
-
-                {/* 3rd = 1 column */}
-                <div className="col-span-1 bg-green-100 p-4">
-                    Right
-                </div>
-
-            </div>
-
+  return (
+    <div className="max-w-300 mx-auto">
+      <Header></Header>
+      <Marquee></Marquee>
+      <Navbar></Navbar>
+      <div className="grid grid-cols-4 gap-4 mt-4">
+        {/* 1st = 1 column */}
+        <div className="col-span-1">
+          <LeftSidebar
+            categories={categories}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          ></LeftSidebar>
         </div>
-    );
+
+        {/* 2nd = 2 columns */}
+        <div className="col-span-2">
+          <Outlet />
+        </div>
+
+        {/* 3rd = 1 column */}
+        <div className="col-span-1">
+          <RightSidebar></RightSidebar>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Root;
