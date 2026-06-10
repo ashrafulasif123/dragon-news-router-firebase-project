@@ -1,16 +1,14 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Marquee from "../Marquee/Marquee";
 import Navbar from "../Navbar/Navbar";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
 import { Outlet } from "react-router";
-import { CategoryContext } from "../../CategoryContext/CategoryContext";
-
 
 const Root = () => {
   // const [activeCategory, setActiveCategory] = useState("Sports");
-  const { activeCategory, setActiveCategory } = use(CategoryContext)
+
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -27,11 +25,7 @@ const Root = () => {
       <div className="grid grid-cols-4 gap-4 mt-4">
         {/* 1st = 1 column */}
         <div className="col-span-1">
-          <LeftSidebar
-            categories={categories}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          ></LeftSidebar>
+          <LeftSidebar categories={categories}></LeftSidebar>
         </div>
 
         {/* 2nd = 2 columns */}
