@@ -1,17 +1,16 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Header from "../Header/Header";
 import Marquee from "../Marquee/Marquee";
 import Navbar from "../Navbar/Navbar";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
 import { Outlet } from "react-router";
-// import button from "daisyui/components/button";
+import { CategoryContext } from "../../CategoryContext/CategoryContext";
+
 
 const Root = () => {
-  const [activeCategory, setActiveCategory] = useState("Sports");
-  //   const loaderData = useLoaderData();
-  //   const [news, setNews] = useState(loaderData);
-  //   console.log(news);
+  // const [activeCategory, setActiveCategory] = useState("Sports");
+  const { activeCategory, setActiveCategory } = use(CategoryContext)
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
