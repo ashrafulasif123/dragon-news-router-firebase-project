@@ -8,20 +8,31 @@ import {
 import swimmingImg from "../../assets/swimming.png";
 import playGroundImg from "../../assets/playground.png";
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../../firebase/firebase.init";
-
-const googleProvider = new GoogleAuthProvider();
+import { use } from "react";
+import { AuthContext } from "../../AuthContext/AuthContext";
+import { toast } from "react-toastify";
 
 const RightSidebar = () => {
-
+  const { signInWithGoogle, signInWithGitHub } = use(AuthContext);
   const handleGoogleLogin = () => {
-    signInWithPopup(auth, googleProvider)
+    signInWithGoogle()
       .then(() => {
-        console.log("You have Successfully Login")
-      }).catch(() => {
+        toast("You have successfully Login by GoogleSign");
+      })
+      .catch((error) => {
+        toast(error.message);
       });
-  }
+  };
+
+  const handleGitHubLogin = () => {
+    signInWithGitHub()
+      .then(() => {
+        toast("You have successfully Login by GitHubSign");
+      })
+      .catch((error) => {
+        toast(error.message);
+      });
+  };
 
   return (
     <div className="space-y-8">
@@ -30,12 +41,18 @@ const RightSidebar = () => {
         <h2 className="text-xl font-semibold mb-4">Login With</h2>
 
         <div className="space-y-3">
-          <button onClick={handleGoogleLogin} className="btn btn-outline w-full">
+          <button
+            onClick={handleGoogleLogin}
+            className="btn btn-outline w-full"
+          >
             <FaGoogle />
             Login with Google
           </button>
 
-          <button className="btn btn-outline w-full">
+          <button
+            onClick={handleGitHubLogin}
+            className="btn btn-outline w-full"
+          >
             <FaGithub />
             Login with GitHub
           </button>

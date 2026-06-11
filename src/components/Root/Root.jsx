@@ -4,7 +4,7 @@ import Marquee from "../Marquee/Marquee";
 import Navbar from "../Navbar/Navbar";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 
 const Root = () => {
   // const [activeCategory, setActiveCategory] = useState("Sports");
@@ -17,8 +17,10 @@ const Root = () => {
       .then((data) => setCategories(data));
   }, []);
 
+  const navigation = useNavigation();
+
   return (
-    <div className="max-w-300 mx-auto">
+    <div className="max-w-300 mx-auto relative min-h-screen">
       <Header></Header>
       <Marquee></Marquee>
       <Navbar></Navbar>
@@ -30,7 +32,13 @@ const Root = () => {
 
         {/* 2nd = 2 columns */}
         <div className="col-span-2">
-          <Outlet />
+          {navigation.state === "loading" ? (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <span className="loading loading-spinner text-error w-[50px] h-[50px]"></span>
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </div>
 
         {/* 3rd = 1 column */}
