@@ -8,7 +8,21 @@ import {
 import swimmingImg from "../../assets/swimming.png";
 import playGroundImg from "../../assets/playground.png";
 
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase/firebase.init";
+
+const googleProvider = new GoogleAuthProvider();
+
 const RightSidebar = () => {
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, googleProvider)
+      .then(() => {
+        console.log("You have Successfully Login")
+      }).catch(() => {
+      });
+  }
+
   return (
     <div className="space-y-8">
       {/* Login */}
@@ -16,7 +30,7 @@ const RightSidebar = () => {
         <h2 className="text-xl font-semibold mb-4">Login With</h2>
 
         <div className="space-y-3">
-          <button className="btn btn-outline w-full">
+          <button onClick={handleGoogleLogin} className="btn btn-outline w-full">
             <FaGoogle />
             Login with Google
           </button>
