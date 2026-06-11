@@ -1,6 +1,6 @@
 
 import { FaUserCircle } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 
 const Navbar = () => {
@@ -41,9 +41,12 @@ const Navbar = () => {
             <div className="flex-none flex items-center gap-3">
                 <FaUserCircle className="text-2xl text-gray-600" />
 
-                <button className="btn btn-primary btn-sm">
-                    Login
-                </button>
+                <Link to="/login">
+                    <button className="btn btn-primary btn-sm">
+                        Login
+                    </button>
+                </Link>
+
             </div>
         </div>
     );

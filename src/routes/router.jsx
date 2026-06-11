@@ -5,6 +5,9 @@ import NewsDetails from "../components/NewsDetails/NewsDetails";
 import About from "../components/About/About";
 import Carrer from "../components/Carrer/Carrer";
 import newRoot from "../components/newRoot/newRoot";
+import AuthRoot from "../components/AuthRoot/AuthRoot";
+import Login from "../components/Login/Login";
+import Registration from "../components/Registration/Registration";
 
 export const router = createBrowserRouter([
   {
@@ -37,5 +40,18 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    Component: AuthRoot,
+    children: [
+      {
+        path: "login",
+        Component: Login
+      },
+      {
+        path: "registration",
+        Component: Registration
+      }
+    ]
+  }
 
 ]);
