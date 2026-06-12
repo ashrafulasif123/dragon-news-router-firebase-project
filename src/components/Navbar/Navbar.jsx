@@ -1,19 +1,29 @@
 import { use } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../AuthContext/AuthContext";
+import loading from "daisyui/components/loading";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { user, logOut } = use(AuthContext);
   const handleLogOut = () => {
     logOut().then(() => {
-      // Sign-out successful.
+      navigate("/about");
     });
   };
   const linkClass = ({ isActive }) =>
     isActive
       ? "text-primary font-semibold border-b-2 border-primary pb-1"
       : "text-gray-600 hover:text-primary";
+
+  // if (loading) {
+  //   return (
+  //     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+  //       <span className="loading loading-spinner text-error w-[50px] h-[50px]"></span>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="navbar flex justify-between bg-base-100 shadow-md px-6">

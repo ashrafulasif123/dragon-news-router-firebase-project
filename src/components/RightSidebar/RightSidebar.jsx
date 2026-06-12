@@ -13,7 +13,8 @@ import { AuthContext } from "../../AuthContext/AuthContext";
 import { toast } from "react-toastify";
 
 const RightSidebar = () => {
-  const { signInWithGoogle, signInWithGitHub } = use(AuthContext);
+  const { signInWithGoogle, signInWithGitHub, user, loading } =
+    use(AuthContext);
   const handleGoogleLogin = () => {
     signInWithGoogle()
       .then(() => {
@@ -38,24 +39,30 @@ const RightSidebar = () => {
     <div className="space-y-8">
       {/* Login */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">Login With</h2>
+        {!user && <h2 className="text-xl font-semibold mb-4">Login With</h2>}
 
         <div className="space-y-3">
-          <button
-            onClick={handleGoogleLogin}
-            className="btn btn-outline w-full"
-          >
-            <FaGoogle />
-            Login with Google
-          </button>
-
-          <button
-            onClick={handleGitHubLogin}
-            className="btn btn-outline w-full"
-          >
-            <FaGithub />
-            Login with GitHub
-          </button>
+          {!user &&
+            (loading ? (
+              <span className="loading loading-spinner text-error"></span>
+            ) : (
+              <>
+                <button
+                  onClick={handleGoogleLogin}
+                  className="btn btn-outline w-full"
+                >
+                  <FaGoogle />
+                  Login with Google
+                </button>
+                <button
+                  onClick={handleGitHubLogin}
+                  className="btn btn-outline w-full"
+                >
+                  <FaGithub />
+                  Login with GitHub
+                </button>
+              </>
+            ))}
         </div>
       </div>
 

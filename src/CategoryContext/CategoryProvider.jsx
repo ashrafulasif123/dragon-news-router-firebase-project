@@ -2,32 +2,22 @@ import { useEffect, useState } from "react";
 import { CategoryContext } from "./CategoryContext";
 
 const CategoryProvider = ({ children }) => {
-  const [activeCategory, setActiveCategory] = useState("All News");
-  const [allNews, setNews] = useState([]);
-  const [filteredNews, setFilteredNews] = useState([])
-  const [emptyNews, setEmptyNews] = useState(false)
+  const [activeCategory, setActiveCategory] = useState("Sports");
+  const [newsData, setNewsData] = useState([]);
+  const [filteredNews, setFilteredNews] = useState([]);
+  const [emptyNews, setEmptyNews] = useState(false);
 
   useEffect(() => {
     fetch("news.json")
-      .then(res => res.json())
-      .then(data => {
-        setNews(data);
-        setFilteredNews(data);
-      });
+      .then((res) => res.json())
+      .then((data) => setNewsData(data));
   }, []);
 
-  const handleCategoryNews = (name, id) => {
-    console.log(name, id)
-    setActiveCategory(name);
-
-    if (name === "All News") {
-      setFilteredNews(allNews);
-      setEmptyNews(false);
-      return;
-    }
-
-    const filtered = allNews.filter(item => item.category_id === id);
-
+  useEffect(() => {
+    const filtered =
+      activeCategory === "All News"
+        ? newsData
+        : newsData.filter((news) => news.name === activeCategory);
     if (filtered.length > 0) {
       setFilteredNews(filtered);
       setEmptyNews(false);
@@ -35,14 +25,13 @@ const CategoryProvider = ({ children }) => {
       setFilteredNews([]);
       setEmptyNews(true);
     }
-  };
+  }, [activeCategory, newsData]);
+
   const categoryInfo = {
     activeCategory,
     setActiveCategory,
-    allNews,
-    handleCategoryNews,
     filteredNews,
-    emptyNews
+    emptyNews,
   };
   return <CategoryContext value={categoryInfo}>{children}</CategoryContext>;
 };

@@ -8,6 +8,7 @@ import newRoot from "../components/newRoot/newRoot";
 import AuthRoot from "../components/AuthRoot/AuthRoot";
 import Login from "../components/Login/Login";
 import Registration from "../components/Registration/Registration";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -16,17 +17,20 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("/news.json"),
-        Component: Home
+        Component: Home,
       },
 
       {
         path: "about",
-        Component: About
+        Component: About,
       },
       {
         path: "career",
-        Component: Carrer
+        element: (
+          <PrivateRoutes>
+            <Carrer></Carrer>
+          </PrivateRoutes>
+        ),
       },
     ],
   },
@@ -36,7 +40,7 @@ export const router = createBrowserRouter([
       {
         path: "newsDetails/:id",
         loader: () => fetch("/news.json"),
-        Component: NewsDetails
+        Component: NewsDetails,
       },
     ],
   },
@@ -45,13 +49,12 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        Component: Login
+        Component: Login,
       },
       {
         path: "registration",
-        Component: Registration
-      }
-    ]
-  }
-
+        Component: Registration,
+      },
+    ],
+  },
 ]);

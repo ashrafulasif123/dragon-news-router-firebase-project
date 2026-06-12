@@ -1,10 +1,13 @@
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { use } from "react";
 import { AuthContext } from "../../AuthContext/AuthContext";
 
 const Login = () => {
-  const { signIn } = use(AuthContext);
+  const { signIn, setLoading } = use(AuthContext);
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -13,9 +16,11 @@ const Login = () => {
     signIn(email, password)
       .then(() => {
         toast("You have successfully Login");
+        navigate(from, { replace: true });
       })
       .catch(() => {
         toast("You email/password invalid");
+        setLoading(false);
       });
   };
   return (
