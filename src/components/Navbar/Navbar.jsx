@@ -2,7 +2,6 @@ import { use } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../AuthContext/AuthContext";
-import loading from "daisyui/components/loading";
 
 const Navbar = () => {
   const navigate = useNavigate();
