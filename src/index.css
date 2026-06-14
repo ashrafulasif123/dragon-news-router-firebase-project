@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/* @keyframes marquee {
+@keyframes marquee {
     0% {
       transform: translateX(100%);
     }
@@ -14,4 +14,4 @@
     display: inline-block;
     white-space: nowrap;
     animation: marquee 15s linear infinite;
-  } */
+  }

@@ -1,6 +1,10 @@
+import { format } from "date-fns";
 import headerLogo from "../../assets/logo.png"
 
 const Header = () => {
+    const today = format(new Date(), "EEEE, MMMM  dd, yyyy");
+
+
     return (
         <div className="flex flex-col items-center gap-3 text-center mt-10">
             <img src={headerLogo} alt="" className="" />
@@ -10,7 +14,7 @@ const Header = () => {
             </h3>
 
             <h2 className="text-2xl font-semibold">
-                Sunday, November 27, 2025
+                Date: {today}
             </h2>
         </div>
     );

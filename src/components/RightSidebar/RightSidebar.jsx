@@ -13,7 +13,7 @@ import { AuthContext } from "../../AuthContext/AuthContext";
 import { toast } from "react-toastify";
 
 const RightSidebar = () => {
-  const { signInWithGoogle, signInWithGitHub, user, loading } =
+  const { signInWithGoogle, signInWithGitHub, user, loading, setLoading } =
     use(AuthContext);
   const handleGoogleLogin = () => {
     signInWithGoogle()
@@ -22,6 +22,7 @@ const RightSidebar = () => {
       })
       .catch((error) => {
         toast(error.message);
+        setLoading(false)
       });
   };
 
@@ -32,6 +33,7 @@ const RightSidebar = () => {
       })
       .catch((error) => {
         toast(error.message);
+        setLoading(false)
       });
   };
 
